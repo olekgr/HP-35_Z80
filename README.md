@@ -5,6 +5,10 @@ Build hp-35 scientic calculator clone with Z80 cpu from scratch
 
 This page is about building HP-35 clone. But not using emulators, HP microcode etc. I always wanted write original algorithms, created by David S. Cochran and provided by William E. Egbert in 1977 HP Journal.
 
+As original HP35 was build 50 years ago, this is the good time to do the same.
+
+All fuctions are written using BCD arithmetic, I'm not used BCD - to binary conversion.
+
 ## Number format
 
 For HP-35 clone, I chose a BCD floating point format. It uses an exponent byte, a sign byte and eight mantissa bytes (80 bits total). 
@@ -39,8 +43,8 @@ Negative numbers are always stored as their U'10 complement, with 0x09 at sign p
 
 Z80 has few instruction usefull making BCD arithmetics:
 
-* RLD - rotate left decimal (use for left shift BCD number)
+* RLD - rotate left decimal (useful for left shift BCD number)
 
-* RRD - rotate right decimal (use for right shift BCD number)
+* RRD - rotate right decimal (useful for right shift BCD number)
 
 * DAA - decimal accumulator adjust (addition and substraction BCD numbers)
