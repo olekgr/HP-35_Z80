@@ -8,7 +8,7 @@ For HP-35, I chose a BCD floating point format. It uses an exponent byte, a sign
 
 The sign byte holds 0x00 for positive numbers and 0x09 for negative, this byte also can be 0x01 for positive overflow and 0x08 for negative overflow.
 
-The exponent byte is the number’s signed power of ten, plus the offset 0x80. This greatly simplified addition and substraction algorithms. Range is limited to 10^-99 and 10^99.
+The exponent byte is the number’s signed power of ten, plus the offset 0x80. Note that exponent is not in BCD form, but binary. This greatly simplified addition and substraction algorithms. Range is limited to 10^-99 and 10^99.
 
 The mantissa is represented as 16 BCD digits packed two per byte, with an implied decimal point after the first digit (normalized form).
 
