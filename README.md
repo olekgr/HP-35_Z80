@@ -1,10 +1,10 @@
 # HP-35-Z80
-build hp-35 scientic calculator replica with Z80 cpu from scratch
+build hp-35 scientic calculator clone with Z80 cpu from scratch
 
 
 ## Number format
 
-For HP-35, I chose a BCD floating point format. It uses an exponent byte, a sign byte and eight mantissa bytes. 
+For HP-35, I chose a BCD floating point format. It uses an exponent byte, a sign byte and eight mantissa bytes (80 bits total). 
 
 The sign byte holds 0x00 for positive numbers and 0x09 for negative, this byte also can be 0x01 for positive overflow and 0x08 for negative overflow.
 
@@ -26,8 +26,18 @@ pi/4 is stored  as 7f_00_78_53_98_16_33_97_44_83
 
 ## Negative numbers
 
-Negative numbers are always stored as U'10 complement. For example:
+Negative numbers are always stored as their U'10 complement, with 0x09 at sign position. For example:
 
 -1 is stored as 80_09_80_00_00_00_00_00_00_00
 
 -12 is stored as 81_09_88_00_00_00_00_00_00_00
+
+## Why Z80?
+
+Z80 has few instruction usefull making BCD arithmetics:
+
+* RLD - rotate left decimal (use for right shift BCD number)
+
+* RRD - rotate right decimal (use for left shift)
+
+* DAA - decimal accumulator adjust (addition and substraction)
