@@ -23,3 +23,11 @@ As an examples:
 123 is stored as 82_00_12_30_00_00_00_00_00_00
 
 pi/4 is stored  as 7f_00_78_53_98_16_33_97_44_83
+
+## Negative numbers
+
+Negative numbers are always stored as U'10 complement. For example:
+
+-1 is stored as 80_09_80_00_00_00_00_00_00_00
+
+-12 is stored as 81_09_88_00_00_00_00_00_00_00
