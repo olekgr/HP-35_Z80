@@ -2,7 +2,7 @@
 build hp-35 scientic calculator replica with Z80 cpu from scratch
 
 
-Number format
+## Number format
 
 For HP-35, I chose a BCD floating point format. It uses an exponent byte, a sign byte and eight mantissa bytes. 
 
