@@ -1,21 +1,21 @@
 # HP-35-Z80
-Build hp-35 scientic calculator clone with Z80 cpu from scratch
+Build HP35 scientic calculator clone with Z80 cpu from scratch.
 
 ## Intro
 
-This page is about building HP-35 clone. But not using emulators, HP microcode etc. I always wanted write original algorithms, created by David S. Cochran and provided by William E. Egbert in 1977 HP Journal.
+This page is about building a HP35 clone. But without using emulators, HP microcode etc. I have always wanted to write original algorithms, created by David S. Cochran and provided by William E. Egbert in 4 editions of 1977's HP Journal.
 
-As original HP35 was build 50 years ago, this is the good time to do the same.
+As the original HP35 was built 50 years ago, this is a good time to do the same.
 
-All fuctions are written using BCD arithmetic, I'm not used BCD - to binary conversion.
+All fuctions are written with BCD arithmetic, I haven't used BCD - to binary conversion.
 
 ## Number format
 
-For HP-35 clone, I chose a BCD floating point format. It uses an exponent byte, a sign byte and eight mantissa bytes (80 bits total). 
+For this HP35 clone, I chose a BCD floating point format. It uses an exponent byte, a sign byte and eight mantissa bytes (80 bits total). 
 
 The sign byte holds 0x00 for positive numbers and 0x09 for negative, this byte also can be 0x01 for positive overflow and 0x08 for negative overflow.
 
-The exponent byte is the number’s signed power of ten, plus the offset 0x80. Note that exponent is not in BCD form, but binary. This greatly simplified addition and substraction algorithms. Range is limited to 10^-99 and 10^99.
+The exponent byte is the number’s signed power of ten, plus the offset 0x80. Note that exponent is not in BCD form, but binary. This greatly simplifies addition and substraction algorithms. Range is limited to 10^-99 and 10^99.
 
 The mantissa is represented as 16 BCD digits packed two per byte, with an implied decimal point after the first digit (normalized form).
 
@@ -41,10 +41,10 @@ Negative numbers are always stored as their U'10 complement, with 0x09 at sign p
 
 ## Why Z80?
 
-Z80 has few instruction usefull making BCD arithmetics:
+Z80 has few instruction useful for making BCD arithmetic:
 
-* RLD - rotate left decimal (useful for left shift BCD number)
+* RLD - rotate left decimal (used for shifting BCD numbers to the left)
 
-* RRD - rotate right decimal (useful for right shift BCD number)
+* RRD - rotate right decimal (used for shifting BCD numbers to the right)
 
-* DAA - decimal accumulator adjust (addition and substraction BCD numbers)
+* DAA - decimal accumulator adjust (addition and substraction of BCD numbers)
