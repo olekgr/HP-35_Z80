@@ -1,10 +1,13 @@
 # HP-35-Z80
-build hp-35 scientic calculator clone with Z80 cpu from scratch
+Build hp-35 scientic calculator clone with Z80 cpu from scratch
 
+## Intro
+
+This page is about building HP-35 clone. But not using emulators, HP microcode etc. I always wanted write original algorithms, created by David S. Cochran and provided by William E. Egbert in 1977 HP Journal.
 
 ## Number format
 
-For HP-35, I chose a BCD floating point format. It uses an exponent byte, a sign byte and eight mantissa bytes (80 bits total). 
+For HP-35 clone, I chose a BCD floating point format. It uses an exponent byte, a sign byte and eight mantissa bytes (80 bits total). 
 
 The sign byte holds 0x00 for positive numbers and 0x09 for negative, this byte also can be 0x01 for positive overflow and 0x08 for negative overflow.
 
@@ -28,7 +31,7 @@ pi/4 is stored  as 7f_00_78_53_98_16_33_97_44_83
 
 Negative numbers are always stored as their U'10 complement, with 0x09 at sign position. For example:
 
--1 is stored as 80_09_80_00_00_00_00_00_00_00
+-1 is stored as 80_09_90_00_00_00_00_00_00_00
 
 -12 is stored as 81_09_88_00_00_00_00_00_00_00
 
@@ -36,8 +39,8 @@ Negative numbers are always stored as their U'10 complement, with 0x09 at sign p
 
 Z80 has few instruction usefull making BCD arithmetics:
 
-* RLD - rotate left decimal (use for right shift BCD number)
+* RLD - rotate left decimal (use for left shift BCD number)
 
-* RRD - rotate right decimal (use for left shift)
+* RRD - rotate right decimal (use for right shift BCD number)
 
-* DAA - decimal accumulator adjust (addition and substraction)
+* DAA - decimal accumulator adjust (addition and substraction BCD numbers)
