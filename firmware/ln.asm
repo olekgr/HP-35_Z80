@@ -19,16 +19,16 @@
 ;SOFTWARE.
 ;-----------------------------------------------------------------------------
 ; LN(XREG)
-LNX:
+LNX:                 
 ;-----------------------------------------------------------------------------
 ;	make fresh copy of LN
-			LD hl,KLN
-			LD de,LN10
-			LD bc,90
-			LDIR 
+            LD      hl,KLN 
+            LD      de,LN10 
+            LD      bc,90 
+            LDIR     
 ;-----------------------------------------------------------------------------
 ;	exponent processing			
-			LD      hl,XREG 
+            LD      hl,XREG 
             LD      c,0h 
             LD      a,(hl) 
             SUB     80h 
@@ -43,7 +43,7 @@ L01:
 ;	1-M/10
 ; 
             LD      iy,TMP 
-			LD      hl,KONE 
+            LD      hl,KONE 
             LD      de,ONE 
             CALL    fcopy 
             LD      hl,ONE 
@@ -218,11 +218,11 @@ LN08:
             DEC     (hl) 
             DEC     (hl) 
             DEC     (hl) 
-			DEC     (hl) 
+            DEC     (hl) 
             CALL    fadd 
             LD      de,ONE 
             CALL    fsub 
-            JR      nc,ln08
+            JR      nc,ln08 
             LD      hl,XX 
             LD      de,XREG 
             CALL    fcopy 
@@ -231,7 +231,7 @@ LN08:
 
 ;-----------------------------------------------------------------------------
 ;	part 2, start adding; XREG - reminder
- 
+
             LD      hl,XREG 
             DEC     (hl) 
             DEC     (hl) 
@@ -239,8 +239,8 @@ LN08:
             DEC     (hl) 
             DEC     (hl) 
             DEC     (hl) 
-			DEC     (hl) 
-	
+            DEC     (hl) 
+; 
             LD      iy,TMP 
             LD      ix,LN2 
             PUSH    ix 
@@ -266,19 +266,19 @@ E5:
 
 ;-----------------------------------------------------------------------------
 ;	LN10 substract	
- 
+
             LD      hl,LN10 ; save ln10
             LD      de,XX 
             CALL    fcopy 
- 
+
             LD      hl,LN10 
             LD      de,XREG 
             CALL    fsub 
- 
+
             LD      hl,ln10 
             LD      de,XREG 
             CALL    fcopy 
- 
+
             LD      hl,XX ; load ln10
             LD      de,LN10 
             CALL    fcopy 
@@ -313,4 +313,4 @@ L05:
             CALL    fsub 
             DJNZ    L05 
 L03:                 
-            RET     
+            RET      
