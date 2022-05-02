@@ -3,6 +3,8 @@ assembler source files, please compile with <a href="http://48k.ca/zmac.html">zm
 
 `zmac main.asm -o main.hex`
 
+**Math functions described bellow are completely unrelated to hardware, except they are written for Z80 :)**
+
 # arith.asm
 
 basic arithmetic functions:
