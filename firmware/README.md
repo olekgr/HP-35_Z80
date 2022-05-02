@@ -1,7 +1,7 @@
 # HP-35-Z80
-assembler source files, compile with <a href="http://48k.ca/zmac.html">zmac</a>.
+assembler source files, please compile with <a href="http://48k.ca/zmac.html">zmac</a>.
 
-'zmac main.asm -o main.hex'
+`zmac main.asm -o main.hex`
 
 # arith.asm
 
@@ -23,4 +23,5 @@ basic arithmetic functions:
 
 multiply / divide functions:
 
-* 'MULT' - multiply hl = hl * de, "long hand" method
+* `MULT` - multiply hl = hl * de, "long hand" method
+* `DIV` - divide hl = hl / de, also "long hand" method
