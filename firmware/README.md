@@ -3,7 +3,7 @@ assembler source files, please compile with <a href="http://48k.ca/zmac.html">zm
 
 `zmac main.asm -o main.hex`
 
-**Math functions described bellow are completely unrelated to hardware, except they are written for Z80 :)**
+**All math functions described bellow are completely unrelated to hardware, except they are written for Z80 :)**
 
 # arith.asm
 
@@ -85,3 +85,36 @@ e^x function:
 ln function:
 
 * `LNX` - the natural logarithm X, follows HP algorithm
+
+# fvar.asm and romtables.asm
+
+variables and tables in RAM and ROM
+
+**All operating functions described bellow are completely related to hardware**
+
+# display.asm
+
+* `DISPLAY` - display reg in scientific format hl - pointer to reg; DISPLAY` has two modes: "normal" display and "scientific" exactly like HP35
+
+# pack.asm
+
+* `PACK_KEYB_BUFFER` - pack keyboard buffer to XREG
+
+# numbers.asm
+
+* `NUMBER' - handle digits entry from keyboard 0..9
+
+* `DOT` - key "." pressed
+
+* `CHS` - key "CHS`" pressed
+
+# stack.asm
+
+working stack manipulation (X, Y, Z, T)
+
+# main.asm
+
+has only two function:
+
+* `KEY_SCAN` - keyboard scanning and 7-seg display (not my concept, I've seen this idea elsewere in the internet, don't remember where)
+* `KEY_EXECUTE` - megafunction, each key press goes there :)
