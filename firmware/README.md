@@ -23,10 +23,13 @@ basic arithmetic functions:
 
 multiply / divide functions:
 
-* `MULT` - multiply hl = hl * de, long hand method
+* `MULT` - multiply hl = hl * de, long hand method, like in the HP35
 * `DIV` - divide hl = hl / de, also long hand method
+
+and two auxiliary functions, as mult/div works only with  positive numbers
+
 * `CHK_SGN_IN` - check signs before mult/div
-* `CHK_SGN_OUT` - check/sets signs after mult/div, as mult/div works with only positive numbers
+* `CHK_SGN_OUT` - check/sets signs after mult/div
 
 # sqrt.asm
 
@@ -39,3 +42,10 @@ and three auxiliary functions, as Z80 (and most likely no other one) does not pr
 * `INCSD` - increase single digit in AREG at pointer --  similar to HP c+1->c[p]
 * `SR` - shift right number by 1 digit in AREG (including sign) up to pointer -- shift right c[wp]
 * `FSLL` - long shift left number 1 digit (including sign), decrement exponent
+
+# meggitt.asm
+
+trigonometric tangent function:
+
+* `TAN` - tangent of XREG, follows the HP algorithm, which is based on J.E. Meggitt works (IBM Journal april 1962) and J.E. Volder - The CORDIC Trigonometric Computing Technique (The Institute of Radio Engineers, Inc. 1959)
+
