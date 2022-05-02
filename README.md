@@ -11,13 +11,13 @@ All fuctions are written with BCD arithmetic, I haven't used BCD - to binary con
 
 ## Number format
 
-For this HP35 clone, I chose a BCD floating point format. It uses an exponent byte, a sign byte and eight mantissa bytes (80 bits total). 
+For this HP35 clone, I chose a BCD floating point format. It uses an exponent byte, a sign byte and eight fractional part bytes (80 bits total). 
 
 The sign byte holds 0x00 for positive numbers and 0x09 for negative, this byte also can be 0x01 for positive overflow and 0x08 for negative overflow.
 
 The exponent byte is the number’s signed power of 10, plus the offset 0x80. Note that exponent is not in BCD form, but binary. This greatly simplifies addition and substraction algorithms. Range is limited to 10^-99 and 10^99.
 
-The mantissa is represented as 16 BCD digits packed two per byte, with an implied decimal point after the first digit (normalized form).
+The fractional part is represented as 16 BCD digits packed two per byte, with an implied decimal point after the first digit (normalized form).
 
 Only the first 12 digits are always displayed to the user; the last 4 digits exists to maintain precision (guard digits). All internal calculations are done with 16 digits, next the displayed result is always rounded to 12 digits.
 
