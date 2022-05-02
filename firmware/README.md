@@ -91,7 +91,7 @@ ln function:
 
 variables and tables in RAM and ROM
 
-
+ 
 
 **All operating functions described bellow are completely related to hardware**
 
@@ -105,7 +105,7 @@ variables and tables in RAM and ROM
 
 # numbers.asm
 
-* `NUMBER' - handle digits entry from keyboard 0..9
+* `NUMBER` - handle digits entry from keyboard 0..9
 
 * `DOT` - key "." pressed
 
