@@ -51,8 +51,8 @@ Z80 has few instruction useful for making BCD arithmetic:
 
 ## Speed
 
-Calculation is fast, very fast, we get the result immediately after pressing the key.
+Calculations are fast, very fast, we get the result immediately after pressing the key.
 
 ## Operating
 
-I 
+I have made every effort to make this calculator work exactly like the original. Some functions were simple, others (most notably the CHS key which changes the sign of a number before or after it was entered) difficult. Either way, the calculator executes all the examples in the HP35 manual the same way. I have to say I use this calculator every day and it does a great job.
