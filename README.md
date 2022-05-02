@@ -11,7 +11,7 @@ All fuctions are written with BCD arithmetic, I haven't used BCD - to binary con
 
 ## Number format
 
-For this HP35 clone, I chose a BCD floating point format. It uses an exponent byte, a sign byte and eight fractional part bytes (80 bits total). 
+For this HP35 clone, I chose a BCD floating point format. It uses an exponent byte, a sign byte and eight bytes of fractional part  (80 bits total). 
 
 The sign byte holds 0x00 for positive numbers and 0x09 for negative, this byte also can be 0x01 for positive overflow and 0x08 for negative overflow.
 
