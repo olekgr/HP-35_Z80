@@ -52,3 +52,7 @@ Z80 has few instruction useful for making BCD arithmetic:
 ## Speed
 
 Calculation is fast, very fast, we get the result immediately after pressing the key.
+
+## Operating
+
+I 
