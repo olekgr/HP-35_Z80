@@ -15780,9 +15780,11 @@ Source: www.cypressindustries.com</description>
 <wire x1="-210.82" y1="-5.08" x2="-200.66" y2="-5.08" width="0.1524" layer="91"/>
 <label x="-208.28" y="-5.08" size="1.778" layer="95"/>
 <pinref part="IC1" gate="1" pin="A15"/>
-<wire x1="-200.66" y1="-5.08" x2="-200.66" y2="-2.54" width="0.1524" layer="91"/>
-<pinref part="IC2" gate="G$1" pin="!CE"/>
-<wire x1="-200.66" y1="-2.54" x2="-190.5" y2="-2.54" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="IC4" gate="C" pin="I0"/>
+<wire x1="-320.04" y1="-10.16" x2="-335.28" y2="-10.16" width="0.1524" layer="91"/>
+<label x="-330.2" y="-10.16" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="IC3" gate="G$1" pin="CS2"/>
@@ -16259,14 +16261,6 @@ Source: www.cypressindustries.com</description>
 <pinref part="IC4" gate="D" pin="I1"/>
 <wire x1="-320.04" y1="-38.1" x2="-325.12" y2="-38.1" width="0.1524" layer="91"/>
 <junction x="-325.12" y="-38.1"/>
-<wire x1="-325.12" y1="-33.02" x2="-325.12" y2="-15.24" width="0.1524" layer="91"/>
-<pinref part="IC4" gate="C" pin="I0"/>
-<wire x1="-325.12" y1="-15.24" x2="-325.12" y2="-10.16" width="0.1524" layer="91"/>
-<wire x1="-325.12" y1="-10.16" x2="-320.04" y2="-10.16" width="0.1524" layer="91"/>
-<pinref part="IC4" gate="C" pin="I1"/>
-<wire x1="-320.04" y1="-15.24" x2="-325.12" y2="-15.24" width="0.1524" layer="91"/>
-<junction x="-325.12" y="-15.24"/>
-<junction x="-325.12" y="-33.02"/>
 </segment>
 <segment>
 <pinref part="IC7" gate="A" pin="G1"/>
@@ -16481,6 +16475,11 @@ Source: www.cypressindustries.com</description>
 <pinref part="IC4" gate="B" pin="I0"/>
 <wire x1="-320.04" y1="10.16" x2="-335.28" y2="10.16" width="0.1524" layer="91"/>
 <label x="-330.2" y="10.16" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="IC4" gate="C" pin="I1"/>
+<wire x1="-320.04" y1="-15.24" x2="-335.28" y2="-15.24" width="0.1524" layer="91"/>
+<label x="-330.2" y="-15.24" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="/IORQ" class="0">
@@ -16714,6 +16713,18 @@ Source: www.cypressindustries.com</description>
 <pinref part="DIS1" gate="G$1" pin="P$6"/>
 <wire x1="-182.88" y1="116.84" x2="-139.7" y2="116.84" width="0.1524" layer="91"/>
 <wire x1="-139.7" y1="116.84" x2="-139.7" y2="142.24" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="CS" class="0">
+<segment>
+<pinref part="IC4" gate="C" pin="O"/>
+<wire x1="-294.64" y1="-12.7" x2="-281.94" y2="-12.7" width="0.1524" layer="91"/>
+<label x="-289.56" y="-12.7" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="IC2" gate="G$1" pin="!CE"/>
+<wire x1="-190.5" y1="-2.54" x2="-198.12" y2="-2.54" width="0.1524" layer="91"/>
+<label x="-198.12" y="-2.54" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
