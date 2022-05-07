@@ -20,13 +20,30 @@
 
 ;-----------------------------------------------------------------------------
 ;	arctan(XREG)
-ATAN:
+ATAN:                
+;-----------------------------------------------------------------------------
+;	make fresh copy of ATAN
+            LD      hl,KATAN10 
+            LD      de,ATAN10 
+            LD      bc,70 
+            LDIR     
+;-----------------------------------------------------------------------------
+;	check sign
+            LD      a,(XREG+1) 
+            LD      b,0 
+            CP      0 
+            JR      z,at1 
+            LD      b,1 
+            LD      hl,XREG 
+            CALL    fneg 
+AT1:                 
+            PUSH    bc ;save sign
 ;-----------------------------------------------------------------------------
 ;	setup rotation		
             LD      hl,XREG ; reminder
             LD      de,YY 
             CALL    fcopy 
- 
+
             LD      hl,KONE 
             LD      de,XX 
             CALL    fcopy 
@@ -50,7 +67,7 @@ AROT2:
             LDIR     
             POP     bc 
 
-            LD      a,(Xact) ; shift X div by 10, 100 ... etc :)
+            LD      a,(Xact) ; shift X -- div by 10, 100 ... etc :)
             SUB     b 
             LD      (Xact),a 
 
@@ -85,18 +102,18 @@ AROT2:
             LD      hl,YY 
             LD      de,XX 
             CALL    div ; div use tmp buffer
-			
+; 
             LD      hl,YY 
             LD      de,XREG 
             CALL    fcopy 
 ;-----------------------------------------------------------------------------
 ;	start adding			
             LD      hl,XREG 
-            LD      iy,ROTBUF
+            LD      iy,ROTBUF 
             LD      ix,ATAN10 
             PUSH    ix 
             POP     de 
-            LD      b,7h ;
+            LD      b,7h  
 AE3:                 
             LD      a,(iy) 
             LD      c,a 
@@ -114,6 +131,15 @@ AE5:
             POP     de 
             DEC     b 
             JR      nz,ae3 
-			LD 		hl,XREG
-			ret
-	
+            LD      hl,XREG 
+;-----------------------------------------------------------------------------
+;	check sign
+            POP     bc ;restore sign
+            LD      a,b 
+            CP      0 
+            JR      z,at2 
+            LD      hl,XREG 
+            CALL    fneg 
+AT2:                 
+            RET      
+
