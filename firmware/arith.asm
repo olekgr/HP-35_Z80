@@ -20,7 +20,7 @@
 
 ;-----------------------------------------------------------------------------
 ;	basic arithmetic functions
-;
+; 
 
 ;-----------------------------------------------------------------------------
 ; function FCOPY
@@ -32,18 +32,18 @@ FCOPY:
             PUSH    bc 
             PUSH    hl 
             PUSH    de 
-            LD      bc,0ah
+            LD      bc,0ah 
             LDIR     
             POP     de 
             POP     hl 
             POP     bc 
-            RET 
+            RET      
 ;-----------------------------------------------------------------------------
 ; function FSL
 ; shift left number by 1 digit, decrement exponent
 ; input hl
 ; output hl
-;----------------------------------------------------------------------------- 
+;-----------------------------------------------------------------------------
 FSL:                 
             PUSH    bc 
             PUSH    hl 
@@ -59,48 +59,48 @@ FSL1:
             DJNZ    fsl1 
             POP     hl 
             POP     bc 
-            RET  
-;----------------------------------------------------------------------------- 
+            RET      
+;-----------------------------------------------------------------------------
 ; function FSR
 ; shift right by 1 digit, increment exponent, save sign
 ; input hl
 ; output hl
-;----------------------------------------------------------------------------- 
-FSR:        	
-            PUSH    bc
+;-----------------------------------------------------------------------------
+FSR:                 
+            PUSH    bc 
             INC     (hl) ;exp+1
-            INC     hl
+            INC     hl 
             LD      b,(hl) ;save sign
-            PUSH    hl
-            XOR     a
+            PUSH    hl 
+            XOR     a 
             RRD      
-            INC     hl
+            INC     hl 
             RRD      
-            INC     hl
+            INC     hl 
             RRD      
-            INC     hl
+            INC     hl 
             RRD      
-            INC     hl
+            INC     hl 
             RRD      
-            INC     hl
+            INC     hl 
             RRD      
-            INC     hl
+            INC     hl 
             RRD      
-            INC     hl
+            INC     hl 
             RRD      
-            INC     hl
+            INC     hl 
             RRD      
-            POP     hl
+            POP     hl 
             LD      (hl),b ;restore sign
-            DEC     hl
+            DEC     hl 
             POP     bc 
-            RET 
-;----------------------------------------------------------------------------- 
+            RET      
+;-----------------------------------------------------------------------------
 ; function FALGN
-; Shift mantissas until exponents are equal using shr
+; shift mantissas until exponents are equal using fsr
 ; input hl, de
 ; output hl, de
-;----------------------------------------------------------------------------- 
+;-----------------------------------------------------------------------------
 FALGN:               
             PUSH    bc 
             PUSH    de 
@@ -121,14 +121,14 @@ ALGN1:
 ALGN2:               
             POP     de 
             POP     bc 
-            RET
-;----------------------------------------------------------------------------- 
-; function NORM
-; normalize until first digit is not 0, using shl
-; or if overflow using shr
+            RET      
+;-----------------------------------------------------------------------------
+; function FNORM
+; normalize until first digit is not 0, using fsl
+; or if overflow using fsr
 ; input hl
 ; output hl
-;----------------------------------------------------------------------------- 
+;-----------------------------------------------------------------------------
 FNORM:               
             PUSH    bc 
             PUSH    de 
@@ -137,10 +137,10 @@ FNORM:
 
             INC     hl 
             LD      a,(hl) 
-            CP      8h 
+            CP      8h ;negative overflow
             JR      z,norm4 
 
-            CP      1h 
+            CP      1h ;positive overflow
             JR      z,norm5 
 
             CP      9h ; test negative
@@ -153,7 +153,7 @@ NORM0:
             INC     hl 
             DJNZ    norm0 
             JR      nz,norm2 
-            LD      a,80h ;minexp
+            LD      a,80h ; offset
             LD      h,d ; restore address
             LD      l,e 
             LD      (hl),a 
@@ -182,7 +182,24 @@ NORM2:
             POP     bc 
             RET      
 NORM3:               
-            DEC     hl 
+            INC     hl 
+            LD      b,08h 
+            XOR     a 
+NORM30:              
+            OR      (hl) 
+            INC     hl 
+            DJNZ    norm30 
+            JR      nz,norm31 
+            LD      h,d ; restore address
+            LD      l,e 
+            INC     (hl) ;"-1"
+            INC     hl 
+            LD      (hl),09h 
+            INC     hl 
+            LD      (hl),90h 
+NORM31:              
+            LD      h,d ; restore address
+            LD      l,e 
             CALL    fneg 
             CALL    fnorm 
             CALL    fneg 
@@ -191,7 +208,6 @@ NORM3:
             POP     de 
             POP     bc 
             RET      
-
 NORM4:               ;negative overflow
             DEC     hl 
             CALL    fsr 
@@ -209,13 +225,13 @@ NORM5:               ;positive overflow
             DEC     hl 
             POP     de 
             POP     bc 
-            RET  
-;----------------------------------------------------------------------------- 
+            RET      
+;-----------------------------------------------------------------------------
 ; function FNEG
 ; negate number using U'10
 ; input hl
 ; output hl
-;----------------------------------------------------------------------------- 
+;-----------------------------------------------------------------------------
 FNEG:                
             PUSH    hl 
             PUSH    bc 
@@ -274,13 +290,13 @@ FNEG2:
             POP     de 
             POP     bc 
             POP     hl 
-            RET 
-;----------------------------------------------------------------------------- 
+            RET      
+;-----------------------------------------------------------------------------
 ; function MADD
-; add mantissas hl := hl + de
+; add fractional parts hl := hl + de
 ; input hl, de
 ; output hl
-;----------------------------------------------------------------------------- 
+;-----------------------------------------------------------------------------
 MADD:                
             PUSH    bc 
             LD      bc,09h ; number length-1 (we are adding with sign)
@@ -300,12 +316,12 @@ MADD0:
             DJNZ    madd0 
             POP     bc 
             RET      
-;----------------------------------------------------------------------------- 
+;-----------------------------------------------------------------------------
 ; function FADD
 ; add two bcd numbers hl := hl + de
 ; input hl, de
 ; output hl
-;----------------------------------------------------------------------------- 
+;-----------------------------------------------------------------------------
 FADD:                
             CALL    falgn 
             CALL    madd 
@@ -315,13 +331,13 @@ FADD:
             LD      (hl),a 
             DEC     hl 
             CALL    fnorm 
-            RET  
-;----------------------------------------------------------------------------- 
+            RET      
+;-----------------------------------------------------------------------------
 ; function MSUB
-; substract mantissas hl := hl + de
+; substract fractional parts hl := hl - de
 ; input hl, de
 ; output hl
-;----------------------------------------------------------------------------- 
+;-----------------------------------------------------------------------------
 MSUB:                
             PUSH    bc 
             LD      bc,09h ; number length-1 (we are adding with sign)
@@ -330,7 +346,7 @@ MSUB:
             ADD     hl,bc 
             EX      de,hl ; ok set address
             LD      b,c 
-            XOR     a ; ev and a and start adding
+            XOR     a 
 MSUB0:               
             EX      de,hl 
             LD      a,(de) 
@@ -342,13 +358,13 @@ MSUB0:
             DEC     de 
             DJNZ    msub0 
             POP     bc 
-            RET    
-;----------------------------------------------------------------------------- 
+            RET      
+;-----------------------------------------------------------------------------
 ; function FSUB
 ; substract two bcd numbers hl := hl - de
 ; input hl, de
 ; output hl
-;----------------------------------------------------------------------------- 
+;-----------------------------------------------------------------------------
 FSUB:                
             CALL    falgn 
             CALL    msub 
@@ -360,71 +376,71 @@ FSUB:
             DEC     hl 
             CALL    fnorm 
             POP     af 
-            RET 
+            RET      
 ;-----------------------------------------------------------------------------
 ; function fround
 ; round number to 12 digits
 ; input XREG
 ;-----------------------------------------------------------------------------
-FROUND:     LD      hl,XREG
-            PUSH    bc
-            PUSH    de
+FROUND:     LD      hl,XREG 
+            PUSH    bc 
+            PUSH    de 
             LD      d,h ;save address
-            LD      e,l
-            INC     hl
-            LD      a,(hl)
+            LD      e,l 
+            INC     hl 
+            LD      a,(hl) 
             CP      9h ;test negative
             JR      z,fround3 ;jump if negative
-            DEC     hl
+            DEC     hl 
 
-            LD      bc,08h
-            ADD     hl,bc
+            LD      bc,08h 
+            ADD     hl,bc 
             LD      b,07h ;adding to sign position
 
             LD      a,50h ;start adding 5 at "13" digit
-            ADD     a,(hl)
+            ADD     a,(hl) 
             DAA      
-            LD      (hl),a
-            DEC     hl
-FROUND2:            
+            LD      (hl),a 
+            DEC     hl 
+FROUND2:             
             LD      a,0h ;propagate carry
-            ADC     a,(hl)
+            ADC     a,(hl) 
             DAA      
-            LD      (hl),a
-            DEC     hl
-            DJNZ    fround2
+            LD      (hl),a 
+            DEC     hl 
+            DJNZ    fround2 
 
-            LD      bc,09h
-            ADD     hl,bc
-            LD      (hl),0h ;write 0 at 13-14 pos.
-            DEC     hl
+            LD      bc,09h 
+            ADD     hl,bc 
             LD      (hl),0h ;write 0 at 15-16 pos.
+            DEC     hl 
+            LD      (hl),0h ;write 0 at 13-14 pos.
 
             LD      h,d ;restore address
-            LD      l,e
+            LD      l,e 
             INC     hl ; check positive overflow
-            LD      a,(hl)
-            OR      a
-            JR      z,fround4
-			DEC     hl 
+            LD      a,(hl) 
+            OR      a 
+            JR      z,fround4 
+            DEC     hl 
             CALL    fsr 
             INC     hl 
             LD      (hl),00h ;write sign +
             DEC     hl 
-FROUND4:            
+FROUND4:             
             LD      h,d ;restore address
-            LD      l,e
-            POP     de
-            POP     bc
+            LD      l,e 
+            POP     de 
+            POP     bc 
             RET      
-FROUND3:            
-            DEC     hl
-            CALL    fneg
-            CALL    fround
-            CALL    fneg
+FROUND3:             
+            DEC     hl 
+            CALL    fneg 
+            CALL    fround 
+            CALL    fneg 
             LD      h,d ;restore address
-            LD      l,e
-            POP     de
-            POP     bc
+            LD      l,e 
+            POP     de 
+            POP     bc 
             RET      
-			
+; 

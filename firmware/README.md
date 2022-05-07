@@ -13,7 +13,7 @@ basic arithmetic functions:
 * `FSL` - shift left  by 1 digit, decrement exponent
 * `FSR` - shift right by 1 digit, increment exponent, preserve sign
 * `FALGN` - align numbers, i.e. shift until exponents are equal using fsr
-* `FNORM` - normalize until first digit is not 0, using fsl
+* `FNORM` - normalize until first digit is not 0, using fsl, or if overflow occured, using fsr
 * `FNEG` - negate number using U'10
 * `MADD` - add fractional parts hl := hl + de
 * `FADD` - add two bcd numbers hl := hl + de
