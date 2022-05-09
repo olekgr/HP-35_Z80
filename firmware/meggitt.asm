@@ -23,10 +23,10 @@
 TAN:                 
 ;-----------------------------------------------------------------------------
 ;	make fresh copy of ATAN
-            LD      hl,KATAN10 
-            LD      de,ATAN10 
-            LD      bc,70 
-            LDIR     
+			LD hl,KATAN10
+			LD de,ATAN10
+			LD bc,70
+			LDIR
 ;-----------------------------------------------------------------------------
 ;	start Meggitt decomposition
             LD      hl,XREG 
@@ -53,7 +53,7 @@ MEG2:
             LD      hl,XREG ; reminder
             LD      de,YY 
             CALL    fcopy 
-
+ 
             LD      hl,KONE 
             LD      de,XX 
             CALL    fcopy 
@@ -103,10 +103,12 @@ ROT3:
             INC     ix 
             DEC     b ; main loop
             JR      nz,rot1 
-            RET      
+			RET      
 ;-----------------------------------------------------------------------------
 ;	final division
 TAN_DIV:             
+		
+
             LD      hl,YY 
             LD      de,XX 
             CALL    div 
@@ -114,20 +116,19 @@ TAN_DIV:
             LD      hl,YY 
             LD      de,XREG 
             CALL    fcopy 
-
+ 
             LD      hl,XREG 
-            RET      
+			RET      
 ;-----------------------------------------------------------------------------
 ;	final division
 CTG_DIV:             
             LD      hl,XX 
             LD      de,YY 
             CALL    div 
-
+ 
             LD      hl,XX 
             LD      de,XREG 
             CALL    fcopy 
-
-            LD      hl,XREG 
-            RET      
-
+ 
+            LD      hl,XREG
+			RET      

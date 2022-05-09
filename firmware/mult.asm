@@ -40,7 +40,7 @@ MULT:
             ADD     a,(hl) 
             LD      (hl),a 
 
-            LD      iy,tmp ; start unpacking hl
+            LD      iy,TMP ; start unpacking hl
             INC     hl 
             INC     hl 
             LD      b,08h 
@@ -71,7 +71,7 @@ MULT2:
             DJNZ    mult2 
 
             LD      b,10h ; start adding and shifting
-            LD      iy,tmp+0fh 
+            LD      iy,TMP+0fh 
             POP     hl 
 MULT3:               
             CALL    fsr 
@@ -118,7 +118,7 @@ DIV:
             ADD     a,90h 
             LD      (hl),a 
 
-            LD      iy,tmp 
+            LD      iy,TMP 
             LD      b,10h 
 DIV1:                
             LD      c,0ffh 
@@ -133,7 +133,7 @@ DIV2:
             DJNZ    div1 
 
             LD      b,08h 
-            LD      ix,tmp 
+            LD      ix,TMP 
             INC     hl 
             INC     hl 
             PUSH    hl ; only mantissa

@@ -22,6 +22,7 @@
 ;	digits functions
 ;	one of the most complicated functions :)
 ;	handle digits entry, dot pressed, chs(change sign mantissa and/or exponent) and also automatic stack_up if required
+; 	hard to read code, made with try and check
 ;-----------------------------------------------------------------------------
 NUMBER:              
             PUSH    af ;save key
@@ -36,7 +37,7 @@ NUMBER:
             LD      a,(LASTKEY) 
             CP      0 
             JR      nz,number0 ;don't move stack when ENTER was pressed
-; 
+ 
             LD      a,(MODECHS) 
             CP      0 
             JR      z,number02 
@@ -73,16 +74,16 @@ NUMBER1:
             LD      (DISP_BUFFER+14),a 
             LD      a,(KEYB_BUFFER+15) 
             LD      (KEYB_BUFFER+14),a 
-; 
+ 
             POP     af ;load saved key
             LD      (KEYB_BUFFER+15),a ;write digit to KEYB_BUFFER
             CALL    7seg_convert 
             LD      (DISP_BUFFER+15),a ;write digit to DISP_BUFFER
-; 
+ 
             LD      a,(KEYB_BUFFER+14) 
             CALL    7seg_convert 
             LD      (DISP_BUFFER+14),a ;display first "0"
-; 
+ 
             RET      
 ;-----------------------------------------------------------------------------
 ;	dot`pressed
@@ -95,7 +96,7 @@ DOT:
             JR      z,dot1 ;return
             LD      a,1h 
             LD      (MODEDOT),a ; set dot mode
-; 
+ 
             LD      a,(DIGCOUNT) ; first dot pressed
             CP      0 
             JR      nz,dot0 
@@ -105,10 +106,23 @@ DOT:
             LD      a,(LASTKEY) 
             CP      0 
             JR      nz,dot0 ;dot also move stack!!
-            CALL    stack_up 
+            LD      a,(MODECHS) 
+            CP      0 
+            JR      z,dot02 
+            LD      hl,XREG 
+            CALL    fneg 
+DOT02: 
+			CALL    stack_up 
             LD      hl,LASTKEY 
             LD      (hl),0 
-DOT0:                
+DOT0:       
+			LD      a,(MODECHS) 
+            CP      0 
+            JR      z,dot01 
+            LD      a,64 ;negative
+            LD      (DISP_BUFFER),a 
+            LD      (KEYB_BUFFER),a 
+DOT01:       
             LD      a,(DIGCOUNT) ; copy digcount to dotcount (save dot position)
             LD      hl,DOTCOUNT 
             LD      (hl),a 
@@ -124,14 +138,14 @@ DOT1:
 ;-----------------------------------------------------------------------------
 ;	chs pressed
 CHS:                 
-            LD      a,(DIGCOUNT) 
-            CP      0 
-            JR      z,chs6 
-; 
             LD      a,(MODEEEX) ;check eex mode
             CP      1h 
-            JR      z,chs3 
-
+            JR      z,chs3
+			
+			LD      a,(DIGCOUNT) 
+            CP      0 
+            JR      z,chs6 ;use XREG
+ 
             LD      a,(DISP_BUFFER) 
             CP      0 
             JR      nz,chs1 

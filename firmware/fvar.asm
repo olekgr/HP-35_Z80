@@ -134,7 +134,7 @@ KPI:
 KPI180:
             DB      7eh 
             DB      00h 
-            DB      17h,45h,32h,92h,51h,99h,43h,30h 
+            DB      17h,45h,32h,92h,51h,99h,43h,29h 
 K180PI:
 			DB      81h 
             DB      00h 

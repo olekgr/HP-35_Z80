@@ -19,13 +19,13 @@
 ;SOFTWARE.
 ;-----------------------------------------------------------------------------
 ;	e(XREG)
-EX:          
+EX:                  
 ;-----------------------------------------------------------------------------
 ;	make fresh copy of LN
-			LD hl,KLN
-			LD de,LN10
-			LD bc,90
-			LDIR         
+            LD      hl,KLN 
+            LD      de,LN10 
+            LD      bc,90 
+            LDIR     
 ;-----------------------------------------------------------------------------
 ;	start Meggitt decomposition
             LD      hl,XREG 
@@ -39,7 +39,7 @@ MEGE1:
 MEGE2:               
             INC     c 
             CALL    fsub 
-            JR      nc,mege2 ; test carry flag from fsub call
+            JR      nc,mege2 ; test carry flag
             CALL    fadd 
             LD      (iy),c 
             INC     iy 
@@ -206,3 +206,4 @@ EE12:
             LD      (hl),a 
 
             RET      
+

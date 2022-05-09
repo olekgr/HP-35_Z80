@@ -26,8 +26,7 @@ PACK_KEYB_BUFFER:
             PUSH    bc 
             PUSH    ix 
             PUSH    iy 
-			ld a,(XREG)
-			ld (EXP),a ;save exponent
+
             LD      a,(DIGCOUNT) 
             CP      0 
             JP      z,pack8 ;there is nothing in mantissa to pack
@@ -54,12 +53,15 @@ PACK1:
             LD      (de),a 
             INC     de 
             LD      (de),a 
-
-            LD      a,(KEYB_BUFFER) ;sign
+;-----------------------------------------------------------------------------
+; set sign
+            LD      a,(KEYB_BUFFER) 
             CP      0 
             JR      z,pack2 
             LD      hl,XREG 
             CALL    fneg 
+;-----------------------------------------------------------------------------
+; pack exponent
 PACK2:               
             LD      hl,KEYB_BUFFER+14 
             LD      a,(hl) 
@@ -71,7 +73,9 @@ PACK2:
             OR      (hl) 
             CP      0 
             JR      z,pack3 ;jump if 00
-            LD      c,a ;convert to hex
+;-----------------------------------------------------------------------------
+; convert to hex
+            LD      c,a 
             AND     0f0h 
             SRL     a 
             LD      b,a 
@@ -82,7 +86,9 @@ PACK2:
             LD      a,c 
             AND     0fh 
             ADD     a,b ;end conversion
-            LD      b,a ;save exponent
+;-----------------------------------------------------------------------------
+; save exponent
+            LD      b,a 
             LD      a,(KEYB_BUFFER+13) ;exponent sign
             CP      0 
             JR      z,pack4 
@@ -94,38 +100,47 @@ PACK4:
             ADD     a,80h 
 PACK5:               
             LD      hl,XREG 
-            LD      (hl),a ;write ezponent
+            LD      (hl),a ;write exponent
 PACK3:               
-            LD      a,(MODEDOT) ;check dot mode
+;-----------------------------------------------------------------------------
+; check dot mode - set correct exponent
+            LD      a,(MODEDOT) 
             CP      0 
             JR      z,pack7 
             LD      a,(DOTCOUNT) 
             CP      1 
-            JR      z,pack8 ;skip
+            JR      z,pack11 ;skip
             LD      hl,XREG 
             DEC     a 
             LD      b,a 
 PACK6:               
             INC     (hl) 
             DJNZ    pack6 
-            JR      pack8 
+            JR      pack11 
 PACK7:               
+;-----------------------------------------------------------------------------
+;   set correct exponent
             LD      a,(DIGCOUNT) 
             CP      1 
-            JR      z,pack8 ;skip;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            JR      z,pack11 
             LD      hl,XREG 
             DEC     a 
             LD      b,a 
 PACK9:               
             INC     (hl) 
             DJNZ    pack9 
-PACK8:       
-			ld a,(MODEEEX) ;check eex mode
-			cp 0h
-			jr z,pack10 ;end
-			
-			
-            LD      hl,KEYB_BUFFER+14 
+            JR      pack10 ;end
+
+;-----------------------------------------------------------------------------
+; use XREG now; DIGCOUNT = 0
+PACK8:               
+            LD      a,(MODEEEX) 
+            CP      0 
+            JR      z,pack11 ;no exponent entry, skip the rest
+
+;-----------------------------------------------------------------------------
+; pack exponent			
+            LD      hl,KEYB_BUFFER+14 ;pack exponent
             LD      a,(hl) 
             SLA     a 
             SLA     a 
@@ -134,8 +149,10 @@ PACK8:
             INC     hl 
             OR      (hl) 
             CP      0 
-            JR      z,pack10 ;jump if 00
-            LD      c,a ;convert to hex
+            JR      z,pack10 ;skip if 00
+;-----------------------------------------------------------------------------
+; convert to hex
+            LD      c,a 
             AND     0f0h 
             SRL     a 
             LD      b,a 
@@ -146,27 +163,31 @@ PACK8:
             LD      a,c 
             AND     0fh 
             ADD     a,b ;end conversion
+;-----------------------------------------------------------------------------
+; set sign
             LD      b,a ;save exponent
             LD      a,(KEYB_BUFFER+13) ;exponent sign
             CP      0 
-            JR      z,pack11 
-            LD      a,(EXP) 
+            JR      z,pack14 
+            LD      a,(XREG) 
             SUB     b 
-            JR      pack12
-PACK11:               
-            LD      a,(EXP)
-            ADD     a,b
-PACK12:               
+            JR      pack15 
+PACK14:              
+            LD      a,(XREG) 
+            ADD     a,b 
+PACK15:              
             LD      hl,XREG 
             LD      (hl),a ;write exponent
-			
-			xor a
-			ld (MODEEEX),a
-			ld (KEYB_BUFFER+13),a ;exponent sign
-			ld (KEYB_BUFFER+14),a
-			ld (KEYB_BUFFER+15),a
+;-----------------------------------------------------------------------------
+; end :)
 
-PACK10:        
+PACK10:              
+            XOR     a 
+            LD      (MODEEEX),a 
+            LD      (KEYB_BUFFER+13),a ;exponent sign
+            LD      (KEYB_BUFFER+14),a 
+            LD      (KEYB_BUFFER+15),a 
+PACK11:              
             LD      hl,XREG 
             CALL    fnorm 
             POP     iy 
@@ -175,4 +196,5 @@ PACK10:
             POP     hl 
             POP     af 
             RET      
+
 

@@ -18,14 +18,15 @@
 ;OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;SOFTWARE.
 
-			.ORG    8000H
+            .ORG    8000H 
             LD      sp,memory_top 
-            DI      
-            JP      main
+            DI       
+            JP      main 
 
 
 MEMORY_TOP  EQU     0fc00h 
-;MEMORY_TOP  EQU     0a000h 
+;MEMORY_TOP  EQU     0a000h
+
 
 
 include arith.asm
@@ -65,14 +66,14 @@ KEY_SCAN:
             LD      a,(KEY) 
             CP      0ffh 
             JR      nz,key_scan
-            ;CALL    deb
+            CALL    deb
 
 KEY_SCAN1:           
             CALL    scan 
             LD      a,(KEY) 
             CP      0ffh 
             JR      z,key_scan1 
-            ;CALL    deb 
+            CALL    deb 
             RET      
 ;-----------------------------------------------------------------------------
 ;	keyboard debounce
@@ -106,7 +107,7 @@ WAIT1:
 
             IN      a,(3) 
 			IN      a,(3) 
-			IN      a,(3) ;monitor errorr :)
+			IN      a,(3) ;monitor error :)
             LD      b,8
 SHIFT_KEY:           
             RRA      
@@ -142,7 +143,7 @@ KEY_EXEC:
 CODE1:               
             CP      8 ;dot
             JR      nz,code2 
-            CALL    dot 
+            CALL    dot ;see numbers.asm :)
             RET      
 CODE2:               
             CP      16 ;0
@@ -439,7 +440,7 @@ CODE24_1:
 CODE24_2:            
             CALL    error 
             RET      
-; 
+ 
 CODE25:              
             CP      6 ;tan
             JR      nz,code26 
@@ -551,7 +552,7 @@ CODE30:
             LD      hl,KZERO 
             LD      de,TREG 
             CALL    fcopy 
-; 
+ 
             LD      hl,KZERO 
             LD      de,SREG 
             CALL    fcopy 
@@ -625,7 +626,7 @@ CODE33_1:
             CALL    error 
             RET      
 CODE34:              
-            CALL    pack_keyb_buffer ; xy last call, no key checking needed
+            CALL    pack_keyb_buffer ; xy is last call, no key checking needed
             LD      hl,YREG+2 
             LD      b,08h 
             XOR     a 

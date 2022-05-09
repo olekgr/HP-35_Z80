@@ -75,7 +75,7 @@ SQT1:
             LD      hl,XREG 
             RET      
 ;-----------------------------------------------------------------------------
-; and follow HP algorithm now:)
+; and follows HP algorithm now:)
 ; Jacques Laporte (RIP) diagram
 SQRT1:               
             LD      b,1 
