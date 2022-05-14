@@ -1,7 +1,9 @@
 # HP-35-Z80
 EAGLE PCB source files
 
-# BOM
+
+
+## BOM
 * IC1 - Z80
 * IC2 - AT28C64
 * IC3 - 6264
@@ -18,9 +20,9 @@ All SMT components in 1206 case (except C11)
 * C2..C10 100n
 * R10..R17 - 220R
 
-* DIS1..4 - common cathode 7 segment (eg. SH5461AS)
+* DIS1..4 - common cathode 4x7 segment (eg. SH5461AS)
 
 * X1,X2 - USB MINI sockets
 
-* keys 1..35 Cherry MX
+* keys 1..35 Cherry MX switches
 
