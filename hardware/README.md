@@ -24,3 +24,6 @@ All SMT components in 1206 case (except C11)
 * X1,X2 - USB MINI sockets
 * keys 1..35 Cherry MX switches
 
+## Errors
+
+None found, till now :)
