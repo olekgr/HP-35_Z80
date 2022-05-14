@@ -180,7 +180,7 @@ ACOS:
             LD      hl,KPI2 
             LD      de,AREG 
             CALL    fcopy 
- 
+
             LD      hl,AREG 
             LD      de,XREG 
             CALL    fsub 
@@ -194,7 +194,7 @@ CONVERT_TO_RAD:
             LD      hl,KPI180 
             LD      de,AREG 
             CALL    fcopy 
- 
+
             LD      hl,XREG 
             LD      de,AREG 
             CALL    mult 
@@ -205,7 +205,7 @@ CONVERT_TO_DEG:
             LD      hl,K180PI 
             LD      de,AREG 
             CALL    fcopy 
- 
+
             LD      hl,XREG 
             LD      de,AREG 
             CALL    mult 
@@ -216,11 +216,11 @@ TRIG_SGN_IN:
             LD      hl,XREG 
             LD      de,AREG 
             CALL    fcopy 
- 
+
             LD      hl,KPI2 
             LD      de,BREG 
             CALL    fcopy 
- 
+
             LD      hl,AREG 
             LD      de,BREG 
             LD      c,0ffh 
@@ -238,22 +238,23 @@ SCALE:
             LD      hl,K2PI 
             LD      de,BREG 
             CALL    fcopy 
- 
+
             LD      hl,XREG 
-            LD      de,BREG
-            
-			LD      a,(XREG+1) ;sign check
+            LD      de,BREG 
+
+            LD      a,(XREG+1) ;sign check
             CP      9 
-            JR      z,scale2			
+            JR      z,scale2 
 SCALE1:              
             CALL    fsub 
             JR      nc,scale1 
             CALL    fadd 
-			JR		scale3
-SCALE2:
-			CALL    fadd
-			ld a,(XREG+1)
-			or a
-			jr nz,scale2
-SCALE3:
+            JR      scale3 
+SCALE2:              
+            CALL    fadd 
+            LD      a,(XREG+1) 
+            OR      a 
+            JR      nz,scale2 
+SCALE3:              
             RET      
+

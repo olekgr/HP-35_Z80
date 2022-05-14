@@ -18,16 +18,12 @@
 ;OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;SOFTWARE.
 
-            .ORG    8000H 
+            .ORG    0000H 
             LD      sp,memory_top 
             DI       
             JP      main 
 
-
-MEMORY_TOP  EQU     0fc00h 
-;MEMORY_TOP  EQU     0a000h
-
-
+MEMORY_TOP  EQU     0a000h
 
 include arith.asm
 include romtables.asm
@@ -47,17 +43,16 @@ include utils.asm
 ;-----------------------------------------------------------------------------
 ;	main program starts here :)
 MAIN:                
-			;LD hl,ROM
-			;LD de,KEY
-			;LD bc,01bdh
-			;LDIR
-			;STO :)
-			LD hl,KZERO
-			CALL display
-MAIN1:
-            CALL key_scan
-			call key_exec
-            JP   main1
+            LD      hl,ROM 
+            LD      de,KEY 
+            LD      bc,01bdh 
+            LDIR     
+            LD      hl,KZERO 
+            CALL    display 
+MAIN1:               
+            CALL    key_scan 
+            CALL    key_exec 
+            JP      main1 
 
 ;-----------------------------------------------------------------------------
 ;	keyboard scanning high level
@@ -65,8 +60,8 @@ KEY_SCAN:
             CALL    scan 
             LD      a,(KEY) 
             CP      0ffh 
-            JR      nz,key_scan
-            CALL    deb
+            JR      nz,key_scan 
+            CALL    deb 
 
 KEY_SCAN1:           
             CALL    scan 
@@ -77,18 +72,18 @@ KEY_SCAN1:
             RET      
 ;-----------------------------------------------------------------------------
 ;	keyboard debounce
-DEB:            
+DEB:                 
             LD      b,0 
-DEB1:           
+DEB1:                
             DEC     b 
             JR      nz,deb1 
             RET      
 
 ;-----------------------------------------------------------------------------
-;	keyboard scanning and display multiplexing low level
+;	keyboard scanning and display multiplexing, low level
 SCAN:                
             LD      c,16 
-            LD      e,0
+            LD      e,0 
             LD      d,0 
             LD      a,0ffh 
             LD      (KEY),a 
@@ -98,7 +93,7 @@ SCAN1:
             OUT     (1),a 
             LD      a,(hl) 
             OUT     (0),a 
-            LD      b,80 ;ON 
+            LD      b,80 ;ON
 WAIT1:               
             DEC     b 
             JR      nz,wait1 
@@ -106,9 +101,9 @@ WAIT1:
             OUT     (0),a ;OFF
 
             IN      a,(3) 
-			IN      a,(3) 
-			IN      a,(3) ;monitor error :)
-            LD      b,8
+            IN      a,(3) 
+            IN      a,(3) ;monitor error :)
+            LD      b,8 
 SHIFT_KEY:           
             RRA      
             JR      c,next_key 
@@ -120,7 +115,7 @@ NEXT_KEY:
             INC     d 
             DEC     b 
             JR      nz,shift_key 
-			inc 	e
+            INC     e 
             INC     hl 
             DEC     c 
             JR      nz,scan1 
@@ -162,7 +157,7 @@ CODE3_1:
             OR      (hl) 
             INC     hl 
             DJNZ    code3_1 
-            JR      z,code3_2 ;zero check :)
+            JR      z,code3_2 ;zero check
             LD      hl,YREG 
             LD      de,XREG 
             CALL    div 
@@ -291,7 +286,7 @@ CODE17:
             CP      12 ;eex
             JR      nz,code18 
             LD      a,1h 
-            LD      (MODEEEX),a
+            LD      (MODEEEX),a 
             RET      
 CODE18:              
             CP      20 ;chs
@@ -335,49 +330,16 @@ CODE20:
 CODE21:              
             CP      13 ;sto
             JR      nz,code22 
-;call pack_keyb_buffer
-;ld hl,XREG
-;ld de,SREG
-;call fcopy
-;ld hl,XREG
-;call display
-;call clear_flags
-;ld hl,LASTKEY
-;ld (hl),1
-            PUSH    bc 
-            PUSH    af 
-            LD      a,(DISP_BUFFER+1) 
-            LD      (DISP_BUFFER),a 
-            LD      a,(DISP_BUFFER+2) 
-            LD      (DISP_BUFFER+1),a 
-            LD      a,(DISP_BUFFER+3) 
-            LD      (DISP_BUFFER+2),a 
-            LD      a,(DISP_BUFFER+4) 
-            LD      (DISP_BUFFER+3),a 
-            LD      a,(DISP_BUFFER+5) 
-            LD      (DISP_BUFFER+4),a 
-            LD      a,(DISP_BUFFER+6) 
-            LD      (DISP_BUFFER+5),a 
-            LD      a,(DISP_BUFFER+7) 
-            LD      (DISP_BUFFER+6),a 
-            LD      a,(DISP_BUFFER+8) 
-            LD      (DISP_BUFFER+7),a 
-            LD      a,(DISP_BUFFER+9) 
-            LD      (DISP_BUFFER+8),a 
-            LD      a,(DISP_BUFFER+10) 
-            LD      (DISP_BUFFER+9),a 
-            LD      a,(DISP_BUFFER+11) 
-            LD      (DISP_BUFFER+10),a 
-            LD      a,(DISP_BUFFER+12) 
-            LD      (DISP_BUFFER+11),a 
-            LD      a,(DISP_BUFFER+13) 
-            LD      (DISP_BUFFER+12),a 
-            LD      a,(DISP_BUFFER+14) 
-            LD      (DISP_BUFFER+13),a 
-            LD      a,(DISP_BUFFER+15) 
-            LD      (DISP_BUFFER+14),a 
-            POP     af 
-            POP     bc 
+            CALL    pack_keyb_buffer 
+            LD      hl,XREG 
+            LD      de,SREG 
+            CALL    fcopy 
+            LD      hl,XREG 
+            CALL    display 
+            CALL    clear_flags 
+            LD      hl,LASTKEY 
+            LD      (hl),1 
+
             RET      
 CODE22:              
             CP      21 ;R down
@@ -389,7 +351,7 @@ CODE22:
             CALL    clear_flags 
             RET      
 CODE23:              
-            CP      29 ;x-y
+            CP      29 ;x<->y
             JR      nz,code24 
             CALL    pack_keyb_buffer 
             LD      hl,XREG 
@@ -440,7 +402,7 @@ CODE24_1:
 CODE24_2:            
             CALL    error 
             RET      
- 
+
 CODE25:              
             CP      6 ;tan
             JR      nz,code26 
@@ -449,7 +411,7 @@ CODE25:
             CP      1 
             JR      z,code25_1 
             CALL    convert_to_rad 
-			CALL	scale
+            CALL    scale 
             CALL    tan 
             CALL    tan_div 
             JR      code25_2 
@@ -473,20 +435,20 @@ CODE26:
             CALL    trig_sgn_in 
             CALL    cos 
             JR      code26_2 
-CODE26_1:    
-            LD      a,(XREG)
+CODE26_1:            
+            LD      a,(XREG) 
             SUB     80h 
-            JR      nc,code26_3         
+            JR      nc,code26_3 
             CALL    acos 
             CALL    convert_to_deg 
 CODE26_2:            
             CALL    fround 
             CALL    display 
             CALL    clear_flags 
-            RET   
+            RET      
 CODE26_3:            
             CALL    error 
-            RET			
+            RET      
 CODE27:              
             CP      22 ;sin
             JR      nz,code28 
@@ -499,20 +461,20 @@ CODE27:
             CALL    trig_sgn_in 
             CALL    sin 
             JR      code27_2 
-CODE27_1:   
-            LD      a,(XREG)
+CODE27_1:            
+            LD      a,(XREG) 
             SUB     80h 
-            JR      nc,code27_3         
+            JR      nc,code27_3 
             CALL    asin 
             CALL    convert_to_deg 
 CODE27_2:            
             CALL    fround 
             CALL    display 
             CALL    clear_flags 
-            RET 
+            RET      
 CODE27_3:            
             CALL    error 
-            RET			
+            RET      
 CODE28:              
             CP      30 ;arc
             JR      nz,code29 
@@ -552,7 +514,7 @@ CODE30:
             LD      hl,KZERO 
             LD      de,TREG 
             CALL    fcopy 
- 
+
             LD      hl,KZERO 
             LD      de,SREG 
             CALL    fcopy 
@@ -626,21 +588,21 @@ CODE33_1:
             CALL    error 
             RET      
 CODE34:              
-            CALL    pack_keyb_buffer ; xy is last call, no key checking needed
+            CALL    pack_keyb_buffer ; x^y is last call, no key checking needed
             LD      hl,YREG+2 
             LD      b,08h 
             XOR     a 
 CODE34_2:            
             OR      (hl) 
             INC     hl 
-            DJNZ    code34_2
-            JR      z,code34_3
+            DJNZ    code34_2 
+            JR      z,code34_3 
             LD      a,(XREG+1) 
             CP      9 
-            JR      z,code34_1
-			ld a,(YREG+1)
-			cp 9
-			jr z,code34_4
+            JR      z,code34_1 
+            LD      a,(YREG+1) 
+            CP      9 
+            JR      z,code34_4 
             CALL    lnx 
             LD      hl,XREG 
             LD      de,YREG 
@@ -655,23 +617,23 @@ CODE34_2:
 CODE34_1:            
             CALL    error 
             RET      
-CODE34_3: ;x^0
-			ld hl,KONE
-			ld de,XREG
-			call fcopy
-			call display
-			call clear_flags
-			ret
-CODE34_4: ;x^-y
-			ld hl,YREG
-			call fneg
-			CALL    lnx 
+CODE34_3:            ;x^0
+            LD      hl,KONE 
+            LD      de,XREG 
+            CALL    fcopy 
+            CALL    display 
+            CALL    clear_flags 
+            RET      
+CODE34_4:            ;x^-y
+            LD      hl,YREG 
+            CALL    fneg 
+            CALL    lnx 
             LD      hl,XREG 
             LD      de,YREG 
             CALL    mult 
             CALL    stack_down 
             CALL    ex 
-			LD      hl,KONE 
+            LD      hl,KONE 
             LD      de,ONE 
             CALL    fcopy 
             LD      hl,ONE 
@@ -688,12 +650,10 @@ CODE34_4: ;x^-y
             CALL    display 
             CALL    clear_flags 
             RET      
-
-
-
 CODE35:              
             LD      a,0ffh ;none
             RET      
+
 
 
 include fvar.asm
