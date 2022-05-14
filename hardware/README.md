@@ -21,7 +21,7 @@ All SMT components in 1206 case (except C11)
 * C2..C10 100n
 * R10..R17 - 220R (HP used inductors here for power saving :)
 * DIS1..4 - common cathode 4x7 segment (eg. SH5461AS)
-* X1,X2 - USB MINI sockets
+* X1,X2 - USB MINI sockets (+5V power supply, for convenience left and right side)
 * keys 1..35 Cherry MX switches
 
 ## Errors
