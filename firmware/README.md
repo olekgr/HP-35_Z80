@@ -51,7 +51,11 @@ trigonometric tangent function:
 
 * `TAN` - tangent of XREG, follows the HP algorithm, which is based on J.E. Meggitt works (IBM Journal april 1962) and J.E. Volder - The CORDIC Trigonometric Computing Technique (The Institute of Radio Engineers, Inc. 1959).
 
-I've increased the numbers of stages, from five (like original HP) to seven for better accuracy.
+Please look, how beautiful this algorithm is.
+
+I wrote this code in a simple way using four registers so that you can easily trace how it works.
+
+I've also increased the numbers of stages, from five (like original HP) to seven for better accuracy.
 
 # atan.asm
 
@@ -61,7 +65,7 @@ trigonometric inverse tangent function:
 
 # trig.asm
 
-rest of trigonometric functions:
+rest of trigonometric functions, follows HP (compute tan or atan first):
 
 * `SIN` - sine of XREG
 * `COS` - cosine of XREG

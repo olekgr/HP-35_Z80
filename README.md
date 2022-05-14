@@ -3,7 +3,7 @@ Build HP35 scientic calculator clone with Z80 cpu from scratch.
 
 ## Intro
 
-This page is about building a HP35 clone. But without using emulators, HP microcode etc. I have always wanted to write original algorithms, created by David S. Cochran and provided by William E. Egbert in 4 editions of 1977's HP Journal, please see <a href="https://github.com/olekgr/HP-35_Z80/tree/main/arch">arch</a>.
+This DIY page is about building a HP35 clone. But without using emulators, HP microcode etc. I have always wanted to write original algorithms, created by David S. Cochran and provided by William E. Egbert in 4 editions of 1977's HP Journal, please see <a href="https://github.com/olekgr/HP-35_Z80/tree/main/arch">arch</a>.
 
 As the original HP35 was built 50 years ago, this is a good time to do the same.
 

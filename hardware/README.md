@@ -1,7 +1,7 @@
 # HP-35-Z80
 EAGLE PCB source files
 
-BOM
+# BOM
 * IC1 - Z80
 * IC2 - AT28C64
 * IC3 - 6264
@@ -9,7 +9,7 @@ BOM
 * IC5 - 74HCT154
 * IC6 - 74HCT138
 * IC7 - 74HCT541
-* IC8,IC9 - 74HCT573
+* IC8, IC9 - 74HCT573
 * OSC - 8MHz DIL14
 
 All SMT components in 1206 case (except C11)
