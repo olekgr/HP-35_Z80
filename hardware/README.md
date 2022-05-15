@@ -1,8 +1,8 @@
 # HP-35-Z80
-EAGLE PCB source files
+EAGLE PCB source files, schematic, gerbers etc.
 
 ## Hardware
-The hardware is made as simple as possible. It consists of a Z80 CPU, 8k RAM, 8k ROM, input and output buffers and a simple address decoder. The main program takes about 6k, so it fits easily in 8k EEPROM. I chose 8k RAM (6264) only and because of availability, not need, I think 1-2k would be enough for stack and variables.
+The hardware is made as simple as possible. It consists of a Z80 CPU, 8K RAM, 8K ROM, input and output buffers and a simple address decoder. The main program takes about 6K, so it fits easily in 8K EEPROM. I chose 8K RAM (6264) only and because of availability, not need, I think 1-2K would be enough for stack and variables.
 
 ## BOM
 * IC1 - Z80 - main CPU

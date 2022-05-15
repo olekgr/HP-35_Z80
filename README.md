@@ -15,7 +15,7 @@ For this HP35 clone, I chose a BCD floating point format. It uses an exponent by
 
 The sign byte holds 0x00 for positive numbers and 0x09 for negative, this byte also can hold other values in case of positive or negative overflow.
 
-The exponent byte is the number’s signed power of 10, plus the offset 0x80. Note that exponent is not in BCD form, but binary. This greatly simplifies addition and substraction algorithms. Range is limited to 10^-99 and 10^99.
+The exponent byte is the signed number power of 10, plus the offset 0x80. Note that exponent is not in BCD form, but binary. This greatly simplifies addition and substraction algorithms. Range is limited to 10^-99 and 10^99.
 
 The fractional part is represented as 16 BCD digits packed two per byte, with an implied decimal point after the first digit (normalized form).
 
@@ -51,7 +51,7 @@ Z80 has few instruction useful for making BCD arithmetic:
 
 ## Speed
 
-Calculations are fast, very fast, we get the result immediately after pressing the key.
+Calculations are fast, much faster than original HP35, we get the result immediately after pressing the key.
 
 ## Operating
 

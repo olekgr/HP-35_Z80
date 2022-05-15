@@ -3,8 +3,6 @@ assembler source files, please compile with <a href="http://48k.ca/zmac.html">zm
 
 `zmac main.asm -o main.hex`
 
-**All math functions described bellow are completely unrelated to hardware, except they are written for Z80 :)**
-
 # arith.asm
 
 basic arithmetic functions:
@@ -77,7 +75,7 @@ and auxiliary functions:
 * `CONVERT_TO_RAD` - convert degrees to radians
 * `CONVERT_TO_DEG` - convert radians to degrees
 * `TRIG_SGN_IN` - set sign between 0 <-> 2pi
-* `SCALE` - trig function input scaling down (large angles)
+* `SCALE` - trig function input scaling down (for large angles)
 
 # exp.asm
 
@@ -95,13 +93,9 @@ ln function:
 
 variables and tables in RAM and ROM
 
- 
-
-**All operating functions described bellow are completely related to hardware**
-
 # display.asm
 
-* `DISPLAY` - display reg in scientific format hl - pointer to reg; DISPLAY` has two modes: "normal" display and "scientific" exactly like HP35
+* `DISPLAY` - display reg in scientific format hl - pointer to reg; DISPLAY` has two modes: "normal" and "scientific" exactly like HP35
 
 # pack.asm
 
