@@ -14927,8 +14927,8 @@ Source: www.cypressindustries.com</description>
 <part name="P+19" library="supply1" deviceset="+5V" device=""/>
 <part name="P+20" library="supply1" deviceset="+5V" device=""/>
 <part name="IC6" library="74xx-eu" deviceset="74*138" device="N" technology="HCT"/>
-<part name="IC9" library="74xx-eu" deviceset="74*573" device="N" technology="HCT"/>
-<part name="IC8" library="74xx-eu" deviceset="74*573" device="N" technology="HCT"/>
+<part name="IC9" library="74xx-eu" deviceset="74*573" device="N" technology="HCT" value="74HCT574N"/>
+<part name="IC8" library="74xx-eu" deviceset="74*573" device="N" technology="HCT" value="74HCT574N"/>
 <part name="GND19" library="supply1" deviceset="GND" device=""/>
 <part name="IC7" library="74xx-eu" deviceset="74*541" device="N" technology="HCT"/>
 <part name="GND9" library="supply1" deviceset="GND" device=""/>
