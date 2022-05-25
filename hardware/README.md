@@ -6,6 +6,7 @@ The hardware is made as simple as possible. It consists of a Z80 CPU, 8K RAM, 8K
 
 ## Memory map
 0000h-2000h ROM
+
 8000h-A000h RAM
 
 ## BOM
