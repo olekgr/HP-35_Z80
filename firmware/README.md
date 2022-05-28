@@ -95,7 +95,7 @@ variables and tables in RAM and ROM
 
 # display.asm
 
-* `DISPLAY` - display reg in scientific format hl - pointer to reg; DISPLAY` has two modes: "normal" and "scientific" exactly like HP35
+* `DISPLAY` - display reg in scientific format hl - pointer to reg; DISPLAY has two modes: "normal" and "scientific" exactly like HP35
 
 # pack.asm
 

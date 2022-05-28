@@ -100,9 +100,7 @@ WAIT1:
             XOR     a 
             OUT     (0),a ;OFF
 
-            IN      a,(3) 
-            IN      a,(3) 
-            IN      a,(3) ;monitor error :)
+            IN      a,(3)
             LD      b,8 
 SHIFT_KEY:           
             RRA      
