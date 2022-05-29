@@ -33,7 +33,7 @@ pi/4 is stored  as 7f_00_78_53_98_16_33_97_44_83
 
 ## Negative numbers
 
-Negative numbers are always stored as their U'10 complement, with 0x09 at sign position. For example:
+Negative numbers are always stored as their 10's complement, with 0x09 at sign position. For example:
 
 -1 is stored as 80_09_90_00_00_00_00_00_00_00
 
