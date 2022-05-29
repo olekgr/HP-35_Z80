@@ -41,7 +41,9 @@ Negative numbers are always stored as their U'10 complement, with 0x09 at sign p
 
 ## Why Z80?
 
-Z80 has few instruction useful for making BCD arithmetic:
+The Z80 is only four years younger than the HP35 :)
+
+It has few instructions useful for making BCD arithmetic:
 
 * RLD - rotate left decimal (used for shifting BCD numbers to the left)
 
